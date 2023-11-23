@@ -1,0 +1,20 @@
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import Login from '../auth/Login';
+import Home from '../tabs/Home';
+
+const Stack = createNativeStackNavigator();
+const navigation = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name={'login'} component={Login} />
+        <Stack.Screen name={'home'} component={Home} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default navigation;
