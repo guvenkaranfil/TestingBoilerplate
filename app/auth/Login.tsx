@@ -1,16 +1,14 @@
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {View, Text, Button, StyleSheet} from 'react-native';
 
-const Login = () => {
-  const navigation = useNavigation();
+const Login = ({setUserLoggedIn}: {setUserLoggedIn: () => void}) => {
   return (
     <View style={styles.container}>
       <Text>Login</Text>
       <Button
-        title={'Home'}
+        title={'Go to Home'}
         onPress={() => {
-          navigation.navigate('home');
+          setUserLoggedIn();
         }}
       />
     </View>
