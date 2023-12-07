@@ -40,4 +40,18 @@ describe('NavigationFlow', () => {
     expect(screen.queryByText('Login')).not.toBeOnTheScreen();
     expect(screen.getByText('Home')).toBeOnTheScreen();
   });
+
+  test('should render login page after successfull login and can log out', async () => {
+    render(<Navigation />);
+
+    expect(screen.getByText('Login')).toBeOnTheScreen();
+
+    await userEvent.press(screen.getByText('Go to Home'));
+    expect(screen.queryByText('Login')).not.toBeOnTheScreen();
+    expect(screen.getByText('Home')).toBeOnTheScreen();
+
+    await userEvent.press(screen.getByText('Logout'));
+    expect(screen.getByText('Login')).toBeOnTheScreen();
+    expect(screen.queryByText('Home')).not.toBeOnTheScreen();
+  });
 });
