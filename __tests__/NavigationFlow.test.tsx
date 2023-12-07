@@ -1,10 +1,21 @@
 import React from 'react';
-import {render, screen} from '../.jest/helper/testUtils';
+import {render, screen, userEvent} from '../.jest/helper/testUtils';
 import Navigation from '../app/navigation';
 import store from '../app/store';
 import {setUser} from '../app/store/userSlice';
+import {act} from 'react-test-renderer';
 
 describe('NavigationFlow', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    act(() => {
+      store.dispatch(setUser({token: undefined}));
+    });
+  });
+
   test('renders login screen if user is not signed in', () => {
     store.dispatch(setUser({token: undefined}));
     render(<Navigation />);
@@ -19,5 +30,14 @@ describe('NavigationFlow', () => {
 
     expect(screen.getByText('Home')).toBeOnTheScreen();
     expect(screen.queryByText('Login')).not.toBeOnTheScreen();
+  });
+
+  test('should render home page after successfull login', async () => {
+    render(<Navigation />);
+
+    expect(screen.getByText('Login')).toBeOnTheScreen();
+    await userEvent.press(screen.getByText('Go to Home'));
+    expect(screen.queryByText('Login')).not.toBeOnTheScreen();
+    expect(screen.getByText('Home')).toBeOnTheScreen();
   });
 });
