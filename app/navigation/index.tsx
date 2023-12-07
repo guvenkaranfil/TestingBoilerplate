@@ -7,9 +7,7 @@ import Login from '../auth/Login';
 import Home from '../tabs/Home';
 import {useAppSelector} from '../store';
 
-interface INavigation {}
-
-const Navigation = ({}: INavigation) => {
+const Navigation = () => {
   const isLoggedIn = useAppSelector(state => state.user.token);
 
   return (
@@ -18,9 +16,7 @@ const Navigation = ({}: INavigation) => {
         {isLoggedIn ? (
           <Stack.Screen name={'home'} component={Home} />
         ) : (
-          <Stack.Screen name={'login'}>
-            {props => <Login {...props} setUserLoggedIn={() => {}} />}
-          </Stack.Screen>
+          <Stack.Screen name={'login'} component={Login} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
