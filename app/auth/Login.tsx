@@ -1,14 +1,24 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
+import {useAppDispatch} from '../store';
+import {setUser} from '../store/userSlice';
 
-const Login = ({setUserLoggedIn}: {setUserLoggedIn: () => void}) => {
+const Login = () => {
+  const dispatch = useAppDispatch();
+
   return (
     <View style={styles.container}>
       <Text>Login</Text>
       <Button
         title={'Go to Home'}
         onPress={() => {
-          setUserLoggedIn();
+          dispatch(
+            setUser({
+              token: 'token',
+              refreshToken: 'refreshToken',
+              userName: 'userName',
+            }),
+          );
         }}
       />
     </View>
