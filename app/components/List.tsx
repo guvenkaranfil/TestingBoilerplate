@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, Text, TextInput, View} from 'react-native';
 
 interface IList {
+  isLoading?: boolean;
   data?: Array<{name: string}>;
 }
 
-const List = ({data}: IList) => {
+const List = ({isLoading, data}: IList) => {
   const [name, setname] = useState('');
 
   return (
@@ -15,6 +16,7 @@ const List = ({data}: IList) => {
         value={name}
         onChangeText={setname}
       />
+      {isLoading && <ActivityIndicator testID="loader" size="small" />}
       {(!data || data?.length === 0) && <Text>No Data</Text>}
     </View>
   );

@@ -31,4 +31,13 @@ describe('List component with search functionality use cases', () => {
     screen.rerender(<List data={[]} />);
     expect(screen.getByText('No Data')).toBeTruthy();
   });
+
+  test('should show loader while data is loading and hide when is finished', () => {
+    render(<List data={undefined} isLoading={true} />);
+
+    expect(screen.getByTestId('loader')).toBeOnTheScreen();
+
+    screen.rerender(<List data={undefined} isLoading={false} />);
+    expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
+  });
 });
