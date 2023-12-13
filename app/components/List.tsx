@@ -1,11 +1,22 @@
 import React, {useState} from 'react';
-import {TextInput} from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 
-const List = () => {
+interface IList {
+  data?: Array<{name: string}>;
+}
+
+const List = ({data}: IList) => {
   const [name, setname] = useState('');
 
   return (
-    <TextInput placeholder="Search Name" value={name} onChangeText={setname} />
+    <View>
+      <TextInput
+        placeholder="Search Name"
+        value={name}
+        onChangeText={setname}
+      />
+      {(!data || data?.length === 0) && <Text>No Data</Text>}
+    </View>
   );
 };
 

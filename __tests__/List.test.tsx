@@ -22,4 +22,13 @@ describe('List component with search functionality use cases', () => {
     await userEvent.type(input, 'test with clear');
     expect(input.props.value).toBe('test with clear');
   });
+
+  test('should be shown a message on empty or undefined list data', () => {
+    render(<List data={undefined} />);
+
+    expect(screen.getByText('No Data')).toBeTruthy();
+
+    screen.rerender(<List data={[]} />);
+    expect(screen.getByText('No Data')).toBeTruthy();
+  });
 });
