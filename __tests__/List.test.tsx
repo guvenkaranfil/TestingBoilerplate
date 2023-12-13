@@ -1,14 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {render, screen, userEvent} from '../.jest/helper/testUtils';
-import {TextInput} from 'react-native';
-
-const List = () => {
-  const [name, setname] = useState('');
-
-  return (
-    <TextInput placeholder="Search Name" value={name} onChangeText={setname} />
-  );
-};
+import List from '../app/components/List';
 
 describe('List component with search functionality use cases', () => {
   test('should List component render correctly', () => {
