@@ -1,12 +1,22 @@
 import React, {useState} from 'react';
-import {ActivityIndicator, FlatList, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 interface IList {
   isLoading?: boolean;
+  isFetching?: boolean;
   data?: Array<{name: string}>;
+
+  onRefresh?: () => void;
 }
 
-const List = ({isLoading, data}: IList) => {
+const List = ({isLoading, isFetching = false, data, onRefresh}: IList) => {
   const [name, setname] = useState('');
 
   return (
@@ -21,6 +31,10 @@ const List = ({isLoading, data}: IList) => {
 
       {!isLoading && data && data?.length > 0 && (
         <FlatList
+          testID="list"
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
           data={data}
           renderItem={({item}) => <Text>{item.name}</Text>}
         />

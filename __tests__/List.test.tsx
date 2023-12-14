@@ -1,5 +1,11 @@
 import React from 'react';
-import {render, screen, userEvent} from '../.jest/helper/testUtils';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  userEvent,
+} from '../.jest/helper/testUtils';
 import List from '../app/components/List';
 
 describe('List component with search functionality use cases', () => {
@@ -56,5 +62,37 @@ describe('List component with search functionality use cases', () => {
       expect(textElement.props.children).toEqual(name);
     });
     expect(screen.queryAllByText(/test/i)).toHaveLength(2);
+  });
+
+  test('should user be able to refresh data with pull-to-refresh action', async () => {
+    const names = [{name: 'test'}, {name: 'test2'}];
+    const handleRefresh = jest.fn();
+    render(
+      <List
+        data={names}
+        isLoading={false}
+        onRefresh={() => {
+          handleRefresh();
+          names.push({name: 'test3'});
+        }}
+      />,
+    );
+
+    const list = screen.getByTestId('list');
+    const {refreshControl} = list.props;
+
+    await act(async () => {
+      refreshControl.props.onRefresh();
+    });
+
+    expect(handleRefresh).toHaveBeenCalledTimes(1);
+
+    screen.rerender(<List data={names} isLoading={false} />);
+
+    names.forEach(({name}) => {
+      const textElement = screen.getByText(name);
+      expect(textElement.props.children).toEqual(name);
+    });
+    expect(screen.queryAllByText(/test/i)).toHaveLength(3);
   });
 });
