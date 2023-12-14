@@ -40,4 +40,21 @@ describe('List component with search functionality use cases', () => {
     screen.rerender(<List data={undefined} isLoading={false} />);
     expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
   });
+
+  test('should show data on non-empty data list with handling loading', () => {
+    const names = [{name: 'test'}, {name: 'test2'}];
+    render(<List data={names} isLoading={true} />);
+
+    expect(screen.getByTestId('loader')).toBeOnTheScreen();
+    expect(screen.queryByText(/test/i)).not.toBeOnTheScreen();
+
+    screen.rerender(<List data={names} isLoading={false} />);
+    expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
+
+    names.forEach(({name}) => {
+      const textElement = screen.getByText(name);
+      expect(textElement.props.children).toEqual(name);
+    });
+    expect(screen.queryAllByText(/test/i)).toHaveLength(2);
+  });
 });
