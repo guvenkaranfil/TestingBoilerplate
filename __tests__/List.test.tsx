@@ -51,11 +51,7 @@ describe('List component with search functionality use cases', () => {
     screen.rerender(<List data={names} isLoading={false} />);
     expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
 
-    names.forEach(({name}) => {
-      const textElement = screen.getByText(name);
-      expect(textElement.props.children).toEqual(name);
-    });
-    expect(screen.queryAllByText(/test/i)).toHaveLength(2);
+    TestHelpers.expectMatcheses(names);
   });
 
   test('should user be able to refresh data with pull-to-refresh action', async () => {
@@ -78,11 +74,7 @@ describe('List component with search functionality use cases', () => {
 
     screen.rerender(<List data={names} isLoading={false} />);
 
-    names.forEach(({name}) => {
-      const textElement = screen.getByText(name);
-      expect(textElement.props.children).toEqual(name);
-    });
-    expect(screen.queryAllByText(/test/i)).toHaveLength(3);
+    TestHelpers.expectMatcheses(names);
   });
 });
 
@@ -114,11 +106,7 @@ test('should show loader on load more and hide it with rendering with more items
   expect(screen.getByTestId('loadMore')).toBeOnTheScreen();
 
   screen.rerender(<List data={names} isLoading={false} />);
-  names.forEach(({name}) => {
-    const textElement = screen.getByText(name);
-    expect(textElement.props.children).toEqual(name);
-  });
-  expect(screen.queryAllByText(/test/i)).toHaveLength(3);
+  TestHelpers.expectMatcheses(names);
 
   screen.rerender(<List data={names} isLoading={false} isFetching={false} />);
 
@@ -134,5 +122,13 @@ class TestHelpers {
     await act(async () => {
       refreshControl.props.onRefresh();
     });
+  }
+
+  static async expectMatcheses(names: Array<{name: string}>) {
+    names.forEach(({name}) => {
+      const textElement = screen.getByText(name);
+      expect(textElement.props.children).toEqual(name);
+    });
+    expect(screen.queryAllByText(/test/i)).toHaveLength(names.length);
   }
 }
