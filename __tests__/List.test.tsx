@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  userEvent,
-} from '../.jest/helper/testUtils';
+import {act, render, screen, userEvent} from '../.jest/helper/testUtils';
 import List from '../app/components/List';
 
 describe('List component with search functionality use cases', () => {
@@ -78,12 +72,7 @@ describe('List component with search functionality use cases', () => {
       />,
     );
 
-    const list = screen.getByTestId('list');
-    const {refreshControl} = list.props;
-
-    await act(async () => {
-      refreshControl.props.onRefresh();
-    });
+    TestHelpers.pullToRefresh();
 
     expect(handleRefresh).toHaveBeenCalledTimes(1);
 
@@ -136,3 +125,14 @@ test('should show loader on load more and hide it with rendering with more items
   expect(handleLoadMore).toHaveBeenCalledTimes(1);
   expect(screen.queryByTestId('loadMore')).not.toBeOnTheScreen();
 });
+
+class TestHelpers {
+  static async pullToRefresh() {
+    const list = screen.getByTestId('list');
+    const {refreshControl} = list.props;
+
+    await act(async () => {
+      refreshControl.props.onRefresh();
+    });
+  }
+}
