@@ -96,3 +96,43 @@ describe('List component with search functionality use cases', () => {
     expect(screen.queryAllByText(/test/i)).toHaveLength(3);
   });
 });
+
+test('should show loader on load more and hide it with rendering with more items if data has been updated successfully', async () => {
+  const names = [{name: 'test'}, {name: 'test2'}];
+  const handleLoadMore = jest.fn();
+  render(
+    <List
+      data={names}
+      onEndReached={() => {
+        handleLoadMore();
+        names.push({name: 'test3'});
+      }}
+    />,
+  );
+
+  const list = screen.getByTestId('list');
+  await userEvent.scrollTo(list, {
+    y: 1000,
+    momentumY: 200,
+  });
+
+  await act(() => {
+    list.props.onEndReached();
+  });
+  screen.rerender(<List data={names} isLoading={false} isFetching={true} />);
+
+  expect(handleLoadMore).toHaveBeenCalledTimes(1);
+  expect(screen.getByTestId('loadMore')).toBeOnTheScreen();
+
+  screen.rerender(<List data={names} isLoading={false} />);
+  names.forEach(({name}) => {
+    const textElement = screen.getByText(name);
+    expect(textElement.props.children).toEqual(name);
+  });
+  expect(screen.queryAllByText(/test/i)).toHaveLength(3);
+
+  screen.rerender(<List data={names} isLoading={false} isFetching={false} />);
+
+  expect(handleLoadMore).toHaveBeenCalledTimes(1);
+  expect(screen.queryByTestId('loadMore')).not.toBeOnTheScreen();
+});

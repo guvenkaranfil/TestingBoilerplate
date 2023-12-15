@@ -14,9 +14,16 @@ interface IList {
   data?: Array<{name: string}>;
 
   onRefresh?: () => void;
+  onEndReached?: () => void;
 }
 
-const List = ({isLoading, isFetching = false, data, onRefresh}: IList) => {
+const List = ({
+  isLoading,
+  isFetching = false,
+  data,
+  onRefresh,
+  onEndReached,
+}: IList) => {
   const [name, setname] = useState('');
 
   return (
@@ -37,6 +44,10 @@ const List = ({isLoading, isFetching = false, data, onRefresh}: IList) => {
           }
           data={data}
           renderItem={({item}) => <Text>{item.name}</Text>}
+          onEndReached={onEndReached}
+          ListFooterComponent={
+            isFetching ? <ActivityIndicator testID="loadMore" /> : null
+          }
         />
       )}
     </View>
