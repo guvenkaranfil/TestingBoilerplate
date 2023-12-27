@@ -1,30 +1,7 @@
-import React, {useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
-
-interface PhoneBookUser {
-  name: string;
-  phoneNumber: string;
-}
-interface IPhoneBookList {
-  data?: Array<PhoneBookUser>;
-}
-
-const PhoneBookList = ({data}: IPhoneBookList) => {
-  const [name, setname] = useState('');
-
-  return (
-    <View>
-      <TextInput
-        placeholder="Search Name"
-        value={name}
-        onChangeText={setname}
-      />
-      {(!data || data?.length === 0) && <Text>No Data</Text>}
-    </View>
-  );
-};
-
+import React from 'react';
 import {render, screen, userEvent} from '../.jest/helper/testUtils';
+import PhoneBookList from '../app/tabs/phoneBook/PhoneBookList';
+
 describe('PhoneBook List with Search functionality', () => {
   test('should component render correctly', () => {
     render(<PhoneBookList />);
