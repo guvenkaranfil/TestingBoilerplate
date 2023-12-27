@@ -1,6 +1,8 @@
 import React from 'react';
 import {act, render, screen, userEvent} from '../.jest/helper/testUtils';
-import PhoneBookList from '../app/tabs/phoneBook/PhoneBookList';
+import PhoneBookList, {
+  PhoneBookUser,
+} from '../app/tabs/phoneBook/PhoneBookList';
 
 describe('PhoneBook List with Search functionality', () => {
   test('should component render correctly', () => {
@@ -56,15 +58,7 @@ describe('PhoneBook List with Search functionality', () => {
     screen.rerender(<PhoneBookList data={names} isLoading={false} />);
     expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
 
-    names.forEach(({name, phoneNumber}) => {
-      const textElement = screen.getByText(name);
-      expect(textElement.props.children).toEqual(name);
-
-      const phoneElement = screen.getByText(phoneNumber);
-      expect(phoneElement.props.children).toEqual(phoneNumber);
-    });
-    expect(screen.queryAllByText(/user/i)).toHaveLength(names.length);
-    expect(screen.queryAllByText(/0/i)).toHaveLength(names.length);
+    TestHelpers.expectMatchesText(names);
   });
 
   test('should user be able to refresh data with pull-to-refresh action', async () => {
@@ -95,6 +89,12 @@ describe('PhoneBook List with Search functionality', () => {
 
     screen.rerender(<PhoneBookList data={names} isLoading={false} />);
 
+    TestHelpers.expectMatchesText(names);
+  });
+});
+
+class TestHelpers {
+  static expectMatchesText(names: Array<PhoneBookUser>) {
     names.forEach(({name, phoneNumber}) => {
       const textElement = screen.getByText(name);
       expect(textElement.props.children).toEqual(name);
@@ -104,5 +104,5 @@ describe('PhoneBook List with Search functionality', () => {
     });
     expect(screen.queryAllByText(/user/i)).toHaveLength(names.length);
     expect(screen.queryAllByText(/0/i)).toHaveLength(names.length);
-  });
-});
+  }
+}
