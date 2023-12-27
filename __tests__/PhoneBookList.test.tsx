@@ -85,6 +85,49 @@ describe('PhoneBook List with Search functionality', () => {
 
     TestHelpers.expectMatchesText(names);
   });
+
+  test('should show loader on load more and hide it with rendering with more items if data has been updated successfully', async () => {
+    const names = [
+      {name: 'user1', phoneNumber: '0555 555 5555'},
+      {name: 'user2', phoneNumber: '0444 444 44444'},
+    ];
+    const handleLoadMore = jest.fn();
+    render(
+      <PhoneBookList
+        isLoading={false}
+        data={names}
+        onEndReached={() => {
+          handleLoadMore();
+          names.push({name: 'user3', phoneNumber: '0333 333 3333'});
+        }}
+      />,
+    );
+
+    const list = screen.getByTestId('list');
+    await userEvent.scrollTo(list, {
+      y: 1000,
+      momentumY: 200,
+    });
+
+    await act(() => {
+      list.props.onEndReached();
+    });
+    screen.rerender(
+      <PhoneBookList data={names} isLoading={false} isFetching={true} />,
+    );
+
+    expect(handleLoadMore).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId('loadMore')).toBeOnTheScreen();
+
+    screen.rerender(<PhoneBookList data={names} isLoading={false} />);
+    TestHelpers.expectMatchesText(names);
+
+    screen.rerender(
+      <PhoneBookList data={names} isLoading={false} isFetching={false} />,
+    );
+    expect(handleLoadMore).toHaveBeenCalledTimes(1);
+    expect(screen.queryByTestId('loadMore')).not.toBeOnTheScreen();
+  });
 });
 
 class TestHelpers {

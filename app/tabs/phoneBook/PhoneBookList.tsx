@@ -17,6 +17,7 @@ interface IPhoneBookList {
   isFetching?: boolean;
   data?: Array<PhoneBookUser>;
   onRefresh?: () => void;
+  onEndReached?: () => void;
 }
 
 const PhoneBookList = ({
@@ -24,6 +25,7 @@ const PhoneBookList = ({
   isFetching = false,
   data,
   onRefresh,
+  onEndReached,
 }: IPhoneBookList) => {
   const [name, setname] = useState('');
 
@@ -49,6 +51,10 @@ const PhoneBookList = ({
               <Text>{item.phoneNumber}</Text>
             </View>
           )}
+          onEndReached={onEndReached}
+          ListFooterComponent={
+            isFetching ? <ActivityIndicator testID="loadMore" /> : null
+          }
         />
       )}
     </View>
