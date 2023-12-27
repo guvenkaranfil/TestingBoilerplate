@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, Text, TextInput, View} from 'react-native';
 
 interface PhoneBookUser {
   name: string;
   phoneNumber: string;
 }
 interface IPhoneBookList {
+  isLoading: boolean;
   data?: Array<PhoneBookUser>;
 }
 
-const PhoneBookList = ({data}: IPhoneBookList) => {
+const PhoneBookList = ({isLoading, data}: IPhoneBookList) => {
   const [name, setname] = useState('');
 
   return (
@@ -19,6 +20,7 @@ const PhoneBookList = ({data}: IPhoneBookList) => {
         value={name}
         onChangeText={setname}
       />
+      {isLoading && <ActivityIndicator testID="loader" />}
       {(!data || data?.length === 0) && <Text>No Data</Text>}
     </View>
   );

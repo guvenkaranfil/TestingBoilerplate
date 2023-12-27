@@ -31,4 +31,13 @@ describe('PhoneBook List with Search functionality', () => {
     screen.rerender(<PhoneBookList data={[]} />);
     expect(screen.getByText('No Data')).toBeTruthy();
   });
+
+  test('should show loader while data is loading and hide when is finished', () => {
+    render(<PhoneBookList data={undefined} isLoading={true} />);
+
+    expect(screen.getByTestId('loader')).toBeOnTheScreen();
+
+    screen.rerender(<PhoneBookList data={undefined} isLoading={false} />);
+    expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
+  });
 });
