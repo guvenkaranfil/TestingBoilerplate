@@ -21,7 +21,7 @@ const PhoneBookList = ({isLoading, data}: IPhoneBookList) => {
         onChangeText={setname}
       />
       {isLoading && <ActivityIndicator testID="loader" />}
-      {(!data || data?.length === 0) && <Text>No Data</Text>}
+      {(!data || data?.length === 0) && !isLoading && <Text>No Data</Text>}
     </View>
   );
 };

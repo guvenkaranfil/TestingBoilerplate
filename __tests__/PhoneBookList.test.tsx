@@ -36,8 +36,10 @@ describe('PhoneBook List with Search functionality', () => {
     render(<PhoneBookList data={undefined} isLoading={true} />);
 
     expect(screen.getByTestId('loader')).toBeOnTheScreen();
+    expect(screen.queryByText('No Data')).not.toBeOnTheScreen();
 
     screen.rerender(<PhoneBookList data={undefined} isLoading={false} />);
     expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
+    expect(screen.getByText('No Data')).toBeOnTheScreen();
   });
 });
