@@ -13,7 +13,7 @@ export interface PhoneBookUser {
   phoneNumber: string;
 }
 interface IPhoneBookList {
-  isLoading: boolean;
+  isLoading?: boolean;
   isFetching?: boolean;
   data?: Array<PhoneBookUser>;
   onRefresh?: () => void;
@@ -21,7 +21,7 @@ interface IPhoneBookList {
 }
 
 const PhoneBookList = ({
-  isLoading,
+  isLoading = false,
   isFetching = false,
   data,
   onRefresh,
