@@ -1,11 +1,26 @@
 import React, {useState} from 'react';
-import {TextInput} from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 
-const PhoneBookList = () => {
+interface PhoneBookUser {
+  name: string;
+  phoneNumber: string;
+}
+interface IPhoneBookList {
+  data?: Array<PhoneBookUser>;
+}
+
+const PhoneBookList = ({data}: IPhoneBookList) => {
   const [name, setname] = useState('');
 
   return (
-    <TextInput placeholder="Search Name" value={name} onChangeText={setname} />
+    <View>
+      <TextInput
+        placeholder="Search Name"
+        value={name}
+        onChangeText={setname}
+      />
+      {(!data || data?.length === 0) && <Text>No Data</Text>}
+    </View>
   );
 };
 
@@ -29,5 +44,14 @@ describe('PhoneBook List with Search functionality', () => {
 
     await userEvent.type(input, 'test with clear');
     expect(input.props.value).toBe('test with clear');
+  });
+
+  test('should show a message on empty list', () => {
+    render(<PhoneBookList data={undefined} />);
+
+    expect(screen.getByText('No Data')).toBeTruthy();
+
+    screen.rerender(<PhoneBookList data={[]} />);
+    expect(screen.getByText('No Data')).toBeTruthy();
   });
 });
