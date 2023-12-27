@@ -1,16 +1,30 @@
 import React, {useState} from 'react';
-import {ActivityIndicator, FlatList, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
-interface PhoneBookUser {
+export interface PhoneBookUser {
   name: string;
   phoneNumber: string;
 }
 interface IPhoneBookList {
   isLoading: boolean;
+  isFetching?: boolean;
   data?: Array<PhoneBookUser>;
+  onRefresh?: () => void;
 }
 
-const PhoneBookList = ({isLoading, data}: IPhoneBookList) => {
+const PhoneBookList = ({
+  isLoading,
+  isFetching = false,
+  data,
+  onRefresh,
+}: IPhoneBookList) => {
   const [name, setname] = useState('');
 
   return (
@@ -24,6 +38,10 @@ const PhoneBookList = ({isLoading, data}: IPhoneBookList) => {
       {(!data || data?.length === 0) && !isLoading && <Text>No Data</Text>}
       {!isLoading && (
         <FlatList
+          testID="list"
+          refreshControl={
+            <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
+          }
           data={data}
           renderItem={({item}) => (
             <View>
