@@ -103,15 +103,7 @@ describe('PhoneBook List with Search functionality', () => {
       />,
     );
 
-    const list = screen.getByTestId('list');
-    await userEvent.scrollTo(list, {
-      y: 1000,
-      momentumY: 200,
-    });
-
-    await act(() => {
-      list.props.onEndReached();
-    });
+    await TestHelpers.simulateLoadMore();
     screen.rerender(
       <PhoneBookList data={names} isLoading={false} isFetching={true} />,
     );
@@ -149,6 +141,18 @@ class TestHelpers {
 
     await act(async () => {
       refreshControl.props.onRefresh();
+    });
+  }
+
+  static async simulateLoadMore() {
+    const list = screen.getByTestId('list');
+    await userEvent.scrollTo(list, {
+      y: 1000,
+      momentumY: 200,
+    });
+
+    await act(() => {
+      list.props.onEndReached();
     });
   }
 }
