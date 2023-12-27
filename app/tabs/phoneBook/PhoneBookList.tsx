@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ActivityIndicator, Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, FlatList, Text, TextInput, View} from 'react-native';
 
 interface PhoneBookUser {
   name: string;
@@ -22,6 +22,17 @@ const PhoneBookList = ({isLoading, data}: IPhoneBookList) => {
       />
       {isLoading && <ActivityIndicator testID="loader" />}
       {(!data || data?.length === 0) && !isLoading && <Text>No Data</Text>}
+      {!isLoading && (
+        <FlatList
+          data={data}
+          renderItem={({item}) => (
+            <View>
+              <Text>{item.name}</Text>
+              <Text>{item.phoneNumber}</Text>
+            </View>
+          )}
+        />
+      )}
     </View>
   );
 };

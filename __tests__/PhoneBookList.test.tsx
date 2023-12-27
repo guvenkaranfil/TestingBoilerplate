@@ -42,4 +42,28 @@ describe('PhoneBook List with Search functionality', () => {
     expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
     expect(screen.getByText('No Data')).toBeOnTheScreen();
   });
+
+  test('should show users on non-empty data list with handling loading', () => {
+    const names = [
+      {name: 'user1', phoneNumber: '0555 555 5555'},
+      {name: 'user2', phoneNumber: '0444 444 44444'},
+    ];
+    render(<PhoneBookList data={names} isLoading={true} />);
+
+    expect(screen.getByTestId('loader')).toBeOnTheScreen();
+    expect(screen.queryByText(/user/i)).not.toBeOnTheScreen();
+
+    screen.rerender(<PhoneBookList data={names} isLoading={false} />);
+    expect(screen.queryByTestId('loader')).not.toBeOnTheScreen();
+
+    names.forEach(({name, phoneNumber}) => {
+      const textElement = screen.getByText(name);
+      expect(textElement.props.children).toEqual(name);
+
+      const phoneElement = screen.getByText(phoneNumber);
+      expect(phoneElement.props.children).toEqual(phoneNumber);
+    });
+    expect(screen.queryAllByText(/user/i)).toHaveLength(names.length);
+    expect(screen.queryAllByText(/0/i)).toHaveLength(names.length);
+  });
 });
