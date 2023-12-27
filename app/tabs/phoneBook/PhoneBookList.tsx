@@ -28,13 +28,20 @@ const PhoneBookList = ({
   onEndReached,
 }: IPhoneBookList) => {
   const [name, setname] = useState('');
+  const [listData, setlistData] = useState(data);
+
+  const _onChangeText = (text: string) => {
+    setname(text);
+    const filteredData = data?.filter(item => item.name.includes(text));
+    setlistData(filteredData);
+  };
 
   return (
     <View>
       <TextInput
         placeholder="Search Name"
         value={name}
-        onChangeText={setname}
+        onChangeText={_onChangeText}
       />
       {isLoading && <ActivityIndicator testID="loader" />}
       {(!data || data?.length === 0) && !isLoading && <Text>No Data</Text>}
@@ -44,7 +51,7 @@ const PhoneBookList = ({
           refreshControl={
             <RefreshControl refreshing={isFetching} onRefresh={onRefresh} />
           }
-          data={data}
+          data={listData}
           renderItem={({item}) => (
             <View>
               <Text>{item.name}</Text>

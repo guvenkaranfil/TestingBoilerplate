@@ -120,6 +120,21 @@ describe('PhoneBook List with Search functionality', () => {
     expect(handleLoadMore).toHaveBeenCalledTimes(1);
     expect(screen.queryByTestId('loadMore')).not.toBeOnTheScreen();
   });
+
+  test('should filter list based on user search', async () => {
+    const names = [
+      {name: 'user1', phoneNumber: '0555 555 5555'},
+      {name: 'user2', phoneNumber: '0444 444 44444'},
+    ];
+    render(<PhoneBookList isLoading={false} data={names} />);
+    const input = screen.getByPlaceholderText('Search Name');
+    await userEvent.type(input, 'user1');
+
+    TestHelpers.expectMatchesText([names[0]]);
+
+    await userEvent.clear(input);
+    TestHelpers.expectMatchesText(names);
+  });
 });
 
 class TestHelpers {
