@@ -78,13 +78,7 @@ describe('PhoneBook List with Search functionality', () => {
       />,
     );
 
-    const list = screen.getByTestId('list');
-    const {refreshControl} = list.props;
-
-    await act(async () => {
-      refreshControl.props.onRefresh();
-    });
-
+    TestHelpers.pullToRefresh();
     expect(handleRefresh).toHaveBeenCalledTimes(1);
 
     screen.rerender(<PhoneBookList data={names} isLoading={false} />);
@@ -104,5 +98,14 @@ class TestHelpers {
     });
     expect(screen.queryAllByText(/user/i)).toHaveLength(names.length);
     expect(screen.queryAllByText(/0/i)).toHaveLength(names.length);
+  }
+
+  static async pullToRefresh() {
+    const list = screen.getByTestId('list');
+    const {refreshControl} = list.props;
+
+    await act(async () => {
+      refreshControl.props.onRefresh();
+    });
   }
 }
