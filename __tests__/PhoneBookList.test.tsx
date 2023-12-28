@@ -135,6 +135,21 @@ describe('PhoneBook List with Search functionality', () => {
     await userEvent.clear(input);
     TestHelpers.expectMatchesText(names);
   });
+
+  test('should component update the list after setting data', () => {
+    const names = [
+      {name: 'user1', phoneNumber: '0555 555 5555'},
+      {name: 'user2', phoneNumber: '0444 444 44444'},
+    ];
+    render(<PhoneBookList isLoading={true} data={undefined} />);
+    expect(screen.getByTestId('loader')).toBeOnTheScreen();
+
+    screen.rerender(
+      <PhoneBookList data={names} isLoading={false} isFetching={false} />,
+    );
+
+    TestHelpers.expectMatchesText(names);
+  });
 });
 
 class TestHelpers {

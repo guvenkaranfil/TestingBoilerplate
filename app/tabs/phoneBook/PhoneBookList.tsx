@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -29,6 +29,10 @@ const PhoneBookList = ({
 }: IPhoneBookList) => {
   const [name, setname] = useState('');
   const [listData, setlistData] = useState(data);
+
+  useEffect(() => {
+    setlistData(data);
+  }, [data]);
 
   const _onChangeText = (text: string) => {
     setname(text);
