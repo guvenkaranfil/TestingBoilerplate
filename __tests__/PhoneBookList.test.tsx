@@ -152,7 +152,7 @@ describe('PhoneBook List with Search functionality', () => {
   });
 });
 
-class TestHelpers {
+export class TestHelpers {
   static expectMatchesText(names: Array<PhoneBookUser>) {
     names.forEach(({name, phoneNumber}) => {
       const textElement = screen.getByText(name);
