@@ -1,6 +1,6 @@
 # React Native Testing Boilerplate
 
-[![Lint and Test on Pull Request](https://github.com/guvenkaranfil/TestingBoilerplate/actions/workflows/pr.yaml/badge.svg)](https://github.com/guvenkaranfil/TestingBoilerplate/actions/workflows/pr.yaml)
+[![Lint and Test](https://github.com/guvenkaranfil/TestingBoilerplate/actions/workflows/pr.yaml/badge.svg)](https://github.com/guvenkaranfil/TestingBoilerplate/actions/workflows/pr.yaml)
 
 ## Introduction
 
