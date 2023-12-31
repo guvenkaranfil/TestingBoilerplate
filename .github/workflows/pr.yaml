@@ -1,7 +1,10 @@
 name: Lint and Test
 
 on:
-  [push, pull_request]:
+  push:
+    branches:
+      - main # Specify the branch you want to trigger this action on
+  pull_request:
     branches:
       - main # Specify the branch you want to trigger this action on
 
