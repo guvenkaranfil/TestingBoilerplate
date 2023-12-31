@@ -1,26 +1,30 @@
 # React Native Testing Boilerplate
 
+[![Lint and Test on Pull Request](https://github.com/guvenkaranfil/TestingBoilerplate/actions/workflows/pr.yaml/badge.svg)](https://github.com/guvenkaranfil/TestingBoilerplate/actions/workflows/pr.yaml)
+
 ## Introduction
 
 This repository provides a comprehensive boilerplate for testing in React Native applications, facilitating efficient and effective development.
 
 ## Features
 
-* Pre-configured testing frameworks ( Jest, react-native-testing-library )
-* Example test cases for components, hooks, and navigation
-* Integrated CI/CD setup with GitHub Actions
+- Pre-configured testing frameworks ( Jest, react-native-testing-library )
+- Example test cases for components, hooks, and navigation
+- Integrated CI/CD setup with GitHub Actions
 
 ## Getting Started
 
 Clone the repository. Install dependencies:
+
 ```bash
 yarn install
 ```
+
 Run tests:
+
 ```bash
 yarn test
 ```
-
 
 ## Phone Book Use Case
 
@@ -39,6 +43,7 @@ As a customer
 I want to search within the user list
 So easily, I can always find the user
 ```
+
 ### Narrative #3
 
 ```
@@ -48,6 +53,7 @@ So I can see quickly the previous users I have searched
 ```
 
 ## Payload Contract
+
 ```bash
 [
   {
@@ -68,7 +74,6 @@ So I can see quickly the previous users I have searched
   },
 ]
 ```
-
 
 ## Contributing
 
