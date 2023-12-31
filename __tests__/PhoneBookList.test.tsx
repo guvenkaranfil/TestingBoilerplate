@@ -46,10 +46,7 @@ describe('PhoneBook List with Search functionality', () => {
   });
 
   test('should show users on non-empty data list with handling loading', () => {
-    const names = [
-      {name: 'user1', phoneNumber: '0555 555 5555'},
-      {name: 'user2', phoneNumber: '0444 444 44444'},
-    ];
+    const names = TestHelpers.makeMockData();
     render(<PhoneBookList data={names} isLoading={true} />);
 
     expect(screen.getByTestId('loader')).toBeOnTheScreen();
@@ -62,10 +59,7 @@ describe('PhoneBook List with Search functionality', () => {
   });
 
   test('should user be able to refresh data with pull-to-refresh action', async () => {
-    const names = [
-      {name: 'user1', phoneNumber: '0555 555 5555'},
-      {name: 'user2', phoneNumber: '0444 444 44444'},
-    ];
+    const names = TestHelpers.makeMockData();
     const handleRefresh = jest.fn();
     render(
       <PhoneBookList
@@ -87,10 +81,7 @@ describe('PhoneBook List with Search functionality', () => {
   });
 
   test('should show loader on load more and hide it with rendering with more items if data has been updated successfully', async () => {
-    const names = [
-      {name: 'user1', phoneNumber: '0555 555 5555'},
-      {name: 'user2', phoneNumber: '0444 444 44444'},
-    ];
+    const names = TestHelpers.makeMockData();
     const handleLoadMore = jest.fn();
     render(
       <PhoneBookList
@@ -122,10 +113,7 @@ describe('PhoneBook List with Search functionality', () => {
   });
 
   test('should filter list based on user search', async () => {
-    const names = [
-      {name: 'user1', phoneNumber: '0555 555 5555'},
-      {name: 'user2', phoneNumber: '0444 444 44444'},
-    ];
+    const names = TestHelpers.makeMockData();
     render(<PhoneBookList isLoading={false} data={names} />);
     const input = screen.getByPlaceholderText('Search Name');
     await userEvent.type(input, 'user1');
@@ -137,10 +125,7 @@ describe('PhoneBook List with Search functionality', () => {
   });
 
   test('should component update the list after setting data', () => {
-    const names = [
-      {name: 'user1', phoneNumber: '0555 555 5555'},
-      {name: 'user2', phoneNumber: '0444 444 44444'},
-    ];
+    const names = TestHelpers.makeMockData();
     render(<PhoneBookList isLoading={true} data={undefined} />);
     expect(screen.getByTestId('loader')).toBeOnTheScreen();
 
@@ -152,7 +137,14 @@ describe('PhoneBook List with Search functionality', () => {
   });
 });
 
-class TestHelpers {
+export class TestHelpers {
+  static makeMockData(): PhoneBookUser[] {
+    return [
+      {name: 'user1', phoneNumber: '0555 555 5555'},
+      {name: 'user2', phoneNumber: '0444 444 44444'},
+    ];
+  }
+
   static expectMatchesText(names: Array<PhoneBookUser>) {
     names.forEach(({name, phoneNumber}) => {
       const textElement = screen.getByText(name);
