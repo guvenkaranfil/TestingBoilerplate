@@ -9,10 +9,7 @@ describe('PhoneBook page', () => {
   afterEach(jest.clearAllMocks);
 
   test('should fetch phone book data with showing loading', async () => {
-    const names = [
-      {name: 'user1', phoneNumber: '0555 555 5555'},
-      {name: 'user2', phoneNumber: '0444 444 44444'},
-    ];
+    const names = TestHelpers.makeMockData();
     const mockListData = jest
       .spyOn(api, 'getList')
       .mockResolvedValue({data: names});
