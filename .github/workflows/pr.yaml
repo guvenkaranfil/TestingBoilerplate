@@ -1,7 +1,7 @@
 name: Lint and Test
 
 on:
-  pull_request:
+  [push, pull_request]:
     branches:
       - main # Specify the branch you want to trigger this action on
 
@@ -32,6 +32,8 @@ jobs:
         run: yarn lint --quiet
       - name: Run Tests
         run: yarn test
+      - name: Check File Size
+        run: ./check-file-size.sh
       - name: Check for changes
         run: git diff --exit-code
       - name: Comment on PR if lint fails
