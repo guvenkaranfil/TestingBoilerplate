@@ -13,7 +13,10 @@ export default function PhoneBook() {
         .then(response => {
           setlist(response?.data);
         })
-        .finally(() => setisLoading(false));
+        .catch(() => {})
+        .finally(() => {
+          setisLoading(false);
+        });
     };
 
     getListPhoneBook();
