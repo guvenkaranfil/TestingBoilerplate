@@ -36,7 +36,7 @@ jobs:
       - name: Run Tests
         run: yarn test
       - name: Check File Size
-        run: ./check-file-size.sh
+        run: chmod +x checkFileSize.sh && ./checkFileSize.sh
       - name: Check for changes
         run: git diff --exit-code
       - name: Comment on PR if lint fails
