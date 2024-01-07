@@ -7,13 +7,17 @@ describe('Menu Edit Page', () => {
   test('should render MenuEdit', () => {
     render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
   });
-  test('should render all menu names', () => {
+
+  test('should render all menu names in a sorted way', () => {
+    const sortedMenus = [...MOCK_MENU_ITEMS].sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
     render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
 
-    const allItemNames = screen.queryAllByText(/Item/i);
+    const allItemNames = screen.queryAllByText(/item/i);
 
-    expect(allItemNames).toHaveLength(MOCK_MENU_ITEMS.length);
-    MOCK_MENU_ITEMS.map((item, index) => {
+    expect(allItemNames).toHaveLength(sortedMenus.length);
+    sortedMenus.map((item, index) => {
       expect(allItemNames[index].props.children).toEqual(item.name);
     });
   });

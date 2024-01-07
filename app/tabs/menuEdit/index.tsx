@@ -1,5 +1,5 @@
-import {FlatList} from 'react-native';
 import React from 'react';
+import {FlatList} from 'react-native';
 import MenuEditItem from './MenuEditItem';
 
 export interface IMenuItem {
@@ -13,10 +13,12 @@ interface IMenuEditProps {
 }
 
 export default function MenuEdit({menus}: IMenuEditProps) {
-  if (menus && menus.length > 0) {
+  const sortedMenus = menus?.sort((a, b) => a.name.localeCompare(b.name));
+
+  if (sortedMenus && sortedMenus.length > 0) {
     return (
       <FlatList
-        data={menus}
+        data={sortedMenus}
         renderItem={({item}) => <MenuEditItem item={item} />}
       />
     );
