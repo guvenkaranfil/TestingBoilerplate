@@ -36,19 +36,27 @@ describe('Menu Edit Page', () => {
 
   test('should mark as checked when press unchecked item', async () => {
     const checkedItems = MOCK_MENU_ITEMS.filter(item => item.isActive);
+    const uncheckedItems = MOCK_MENU_ITEMS.filter(item => !item.isActive);
     const uncheckedItem = MOCK_MENU_ITEMS.filter(item => !item.isActive)[0];
     render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
 
     MenuEditTestHelpers.expectCheckedBoxes(checkedItems);
+    MenuEditTestHelpers.expecUncheckedBoxes(uncheckedItems);
 
     const unCheckedItemElement = screen.getByTestId(uncheckedItem.id);
     expect(unCheckedItemElement).toBeOnTheScreen();
 
     await userEvent.press(unCheckedItemElement);
+
     MenuEditTestHelpers.expectCheckedBoxes(
       checkedItems,
       checkedItems.length + 1,
     );
+    MenuEditTestHelpers.expecUncheckedBoxes(
+      uncheckedItems,
+      uncheckedItems.length - 1,
+    );
+
     const uncheckedItemChecbox = screen.getByTestId(
       `checked-${uncheckedItem.id}`,
     );
@@ -65,9 +73,12 @@ class MenuEditTestHelpers {
     expect(checkedBoxes).toHaveLength(expectedCount ?? checkedItems.length);
   };
 
-  static expecUncheckedBoxes = (uncheckedItems: IMenuItem[]) => {
+  static expecUncheckedBoxes = (
+    uncheckedItems: IMenuItem[],
+    expectedCount?: number,
+  ) => {
     const unCheckedBoxes = screen.queryAllByText(/❌/i);
-    expect(unCheckedBoxes).toHaveLength(uncheckedItems.length);
+    expect(unCheckedBoxes).toHaveLength(expectedCount ?? uncheckedItems.length);
   };
 }
 
