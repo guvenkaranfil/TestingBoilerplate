@@ -19,7 +19,7 @@ describe('Menu Edit Page', () => {
   });
 });
 
-const MOCK_MENU_ITEMS: IMenuItem[] = [
+export const MOCK_MENU_ITEMS: IMenuItem[] = [
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe119999',
     name: 'Item 1',
