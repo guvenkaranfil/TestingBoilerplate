@@ -22,32 +22,32 @@ describe('Menu Edit Page', () => {
 export const MOCK_MENU_ITEMS: IMenuItem[] = [
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe119999',
-    name: 'Item 1',
+    name: 'a-Item 1',
     isActive: true,
   },
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe120121',
-    name: 'Item 2',
+    name: 'f-Item 2',
     isActive: false,
   },
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe132131',
-    name: 'Item 3',
+    name: 'e-Item 3',
     isActive: true,
   },
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe1191231',
-    name: 'Item 4',
+    name: 'b-Item 4',
     isActive: true,
   },
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe141901',
-    name: 'Item 5',
+    name: 'g-Item 5',
     isActive: true,
   },
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe119912',
-    name: 'Item 6',
+    name: 'p-Item 6',
     isActive: true,
   },
   {
@@ -57,7 +57,7 @@ export const MOCK_MENU_ITEMS: IMenuItem[] = [
   },
   {
     id: '7a379770-0524-4ab2-91a9-fcd9fe11943',
-    name: 'Item 8',
+    name: 'd-Item 8',
     isActive: false,
   },
 ];
