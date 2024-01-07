@@ -1,12 +1,25 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {FlatList, Text} from 'react-native';
 import React from 'react';
 
-export default function MenuEdit() {
-  return (
-    <View>
-      <Text>MenuEdit</Text>
-    </View>
-  );
+export interface IMenuItem {
+  id: string;
+  name: string;
+  isActive: boolean;
 }
 
-const styles = StyleSheet.create({});
+interface IMenuEditProps {
+  menus?: IMenuItem[];
+}
+
+export default function MenuEdit({menus}: IMenuEditProps) {
+  if (menus && menus.length > 0) {
+    return (
+      <FlatList
+        data={menus}
+        renderItem={({item}) => <Text>{item.name}</Text>}
+      />
+    );
+  }
+
+  return null;
+}
