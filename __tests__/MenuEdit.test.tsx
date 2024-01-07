@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '../.jest/helper/testUtils';
 
-import MenuEdit, {IMenuItem} from '../app/tabs/MenuEdit';
+import MenuEdit, {IMenuItem} from '../app/tabs/menuEdit';
 
 describe('Menu Edit Page', () => {
   test('should render MenuEdit', () => {
