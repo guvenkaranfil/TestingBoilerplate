@@ -8,6 +8,8 @@
     "ios:install": "pod-install",
     "start": "react-native start",
     "test": "jest",
+    "test:e2e:ios": "detox test --configuration ios.sim.debug",
+    "test:e2e:ios:reuse": "detox test --configuration ios.sim.debug --reuse",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install"
   },
