@@ -1,9 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {IMenuItem} from '.';
 
 interface IMenuEditItemProps {
   item: IMenuItem;
+  onPress: (item: IMenuItem, status: boolean) => void;
 }
 
 const CheckBox = ({isActive}: {isActive: boolean}) => {
@@ -16,12 +17,14 @@ const CheckBox = ({isActive}: {isActive: boolean}) => {
   );
 };
 
-export default function MenuEditItem({item}: IMenuEditItemProps) {
+export default function MenuEditItem({item, onPress}: IMenuEditItemProps) {
   return (
-    <View style={styles.container}>
-      <CheckBox isActive={item.isActive} />
-      <Text style={styles.label}>{item.name}</Text>
-    </View>
+    <Pressable testID={item.id} onPress={() => onPress(item, !item.isActive)}>
+      <View style={styles.container}>
+        <CheckBox isActive={item.isActive} />
+        <Text style={styles.label}>{item.name}</Text>
+      </View>
+    </Pressable>
   );
 }
 

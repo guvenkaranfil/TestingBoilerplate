@@ -1,9 +1,12 @@
 import React from 'react';
-import {render, screen} from '../.jest/helper/testUtils';
+import {render, screen, userEvent} from '../.jest/helper/testUtils';
 
 import MenuEdit, {IMenuItem} from '../app/tabs/menuEdit';
 
 describe('Menu Edit Page', () => {
+  beforeEach(() => jest.useFakeTimers());
+  afterEach(() => jest.useRealTimers());
+
   test('should render MenuEdit', () => {
     render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
   });
@@ -32,6 +35,22 @@ describe('Menu Edit Page', () => {
 
     const unCheckedBoxes = screen.queryAllByTestId('unChecked');
     expect(unCheckedBoxes).toHaveLength(uncheckedItems.length);
+  });
+
+  test('should mark as checked when press unchecked item', async () => {
+    const checkedItems = MOCK_MENU_ITEMS.filter(item => item.isActive);
+    const uncheckedItem = MOCK_MENU_ITEMS.filter(item => !item.isActive)[0];
+    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
+
+    const checkedBoxes = screen.queryAllByTestId('checked');
+    expect(checkedBoxes).toHaveLength(checkedItems.length);
+
+    const unCheckedItemElement = screen.getByTestId(uncheckedItem.id);
+    expect(unCheckedItemElement).toBeOnTheScreen();
+
+    await userEvent.press(unCheckedItemElement);
+    const updatedCheckedBoxes = screen.queryAllByTestId('checked');
+    expect(updatedCheckedBoxes).toHaveLength(checkedItems.length + 1);
   });
 });
 
