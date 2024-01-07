@@ -57,12 +57,12 @@ class MenuEditTestHelpers {
     checkedItems: IMenuItem[],
     expectedCount?: number,
   ) => {
-    const checkedBoxes = screen.queryAllByTestId('checked');
+    const checkedBoxes = screen.queryAllByText(/✅/i);
     expect(checkedBoxes).toHaveLength(expectedCount ?? checkedItems.length);
   };
 
   static expecUncheckedBoxes = (uncheckedItems: IMenuItem[]) => {
-    const unCheckedBoxes = screen.queryAllByTestId('unChecked');
+    const unCheckedBoxes = screen.queryAllByText(/❌/i);
     expect(unCheckedBoxes).toHaveLength(uncheckedItems.length);
   };
 }

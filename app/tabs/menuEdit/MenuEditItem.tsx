@@ -12,7 +12,7 @@ const CheckBox = ({isActive}: {isActive: boolean}) => {
     <View
       testID={isActive ? 'checked' : 'unChecked'}
       style={styles.checkboxContainer}>
-      {isActive && <Text>✅</Text>}
+      <Text>{isActive ? '✅' : '❌'}</Text>
     </View>
   );
 };
