@@ -62,6 +62,35 @@ describe('Menu Edit Page', () => {
     );
     expect(uncheckedItemChecbox).toBeOnTheScreen();
   });
+
+  test('should mark as unchecked when press checked item', async () => {
+    const checkedItems = MOCK_MENU_ITEMS.filter(item => item.isActive);
+    const uncheckedItems = MOCK_MENU_ITEMS.filter(item => !item.isActive);
+    const checkedItem = MOCK_MENU_ITEMS.filter(item => item.isActive)[0];
+    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
+
+    MenuEditTestHelpers.expectCheckedBoxes(checkedItems);
+    MenuEditTestHelpers.expecUncheckedBoxes(uncheckedItems);
+
+    const checkedItemElement = screen.getByTestId(checkedItem.id);
+    expect(checkedItemElement).toBeOnTheScreen();
+
+    await userEvent.press(checkedItemElement);
+
+    MenuEditTestHelpers.expectCheckedBoxes(
+      checkedItems,
+      checkedItems.length - 1,
+    );
+    MenuEditTestHelpers.expecUncheckedBoxes(
+      uncheckedItems,
+      uncheckedItems.length + 1,
+    );
+
+    const uncheckedItemChecbox = screen.getByTestId(
+      `unChecked-${checkedItem.id}`,
+    );
+    expect(uncheckedItemChecbox).toBeOnTheScreen();
+  });
 });
 
 class MenuEditTestHelpers {
