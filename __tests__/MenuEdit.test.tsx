@@ -12,7 +12,7 @@ describe('Menu Edit Page', () => {
 
     const allItemNames = screen.queryAllByText(/Item/i);
 
-    expect(allItemNames).toHaveLength(8);
+    expect(allItemNames).toHaveLength(MOCK_MENU_ITEMS.length);
     MOCK_MENU_ITEMS.map((item, index) => {
       expect(allItemNames[index].props.children).toEqual(item.name);
     });
