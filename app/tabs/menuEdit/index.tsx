@@ -1,5 +1,6 @@
-import {FlatList, Text} from 'react-native';
+import {FlatList} from 'react-native';
 import React from 'react';
+import MenuEditItem from './MenuEditItem';
 
 export interface IMenuItem {
   id: string;
@@ -16,7 +17,7 @@ export default function MenuEdit({menus}: IMenuEditProps) {
     return (
       <FlatList
         data={menus}
-        renderItem={({item}) => <Text>{item.name}</Text>}
+        renderItem={({item}) => <MenuEditItem item={item} />}
       />
     );
   }
