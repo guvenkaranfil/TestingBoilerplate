@@ -21,6 +21,18 @@ describe('Menu Edit Page', () => {
       expect(allItemNames[index].props.children).toEqual(item.name);
     });
   });
+
+  test('should render all checkboxes checked/unchecked state', () => {
+    const checkedItems = MOCK_MENU_ITEMS.filter(item => item.isActive);
+    const uncheckedItems = MOCK_MENU_ITEMS.filter(item => !item.isActive);
+    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
+
+    const checkedBoxes = screen.queryAllByTestId('checked');
+    expect(checkedBoxes).toHaveLength(checkedItems.length);
+
+    const unCheckedBoxes = screen.queryAllByTestId('unChecked');
+    expect(unCheckedBoxes).toHaveLength(uncheckedItems.length);
+  });
 });
 
 export const MOCK_MENU_ITEMS: IMenuItem[] = [
