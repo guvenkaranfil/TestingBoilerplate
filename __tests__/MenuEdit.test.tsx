@@ -49,6 +49,10 @@ describe('Menu Edit Page', () => {
       checkedItems,
       checkedItems.length + 1,
     );
+    const uncheckedItemChecbox = screen.getByTestId(
+      `checked-${uncheckedItem.id}`,
+    );
+    expect(uncheckedItemChecbox).toBeOnTheScreen();
   });
 });
 

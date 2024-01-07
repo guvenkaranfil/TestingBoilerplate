@@ -7,10 +7,10 @@ interface IMenuEditItemProps {
   onPress: (item: IMenuItem, status: boolean) => void;
 }
 
-const CheckBox = ({isActive}: {isActive: boolean}) => {
+const CheckBox = ({isActive, id}: {isActive: boolean; id: string}) => {
   return (
     <View
-      testID={isActive ? 'checked' : 'unChecked'}
+      testID={(isActive ? 'checked' : 'unChecked') + '-' + id}
       style={styles.checkboxContainer}>
       <Text>{isActive ? '✅' : '❌'}</Text>
     </View>
@@ -21,7 +21,7 @@ export default function MenuEditItem({item, onPress}: IMenuEditItemProps) {
   return (
     <Pressable testID={item.id} onPress={() => onPress(item, !item.isActive)}>
       <View style={styles.container}>
-        <CheckBox isActive={item.isActive} />
+        <CheckBox id={item.id} isActive={item.isActive} />
         <Text style={styles.label}>{item.name}</Text>
       </View>
     </Pressable>
