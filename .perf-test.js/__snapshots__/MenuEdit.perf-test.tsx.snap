@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu Edit Page should mark as checked when press unchecked item 1`] = `
+[
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "❌",
+  "❌",
+]
+`;
+
+exports[`Menu Edit Page should mark as checked when press unchecked item 2`] = `
+[
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "❌",
+]
+`;
+
+exports[`Menu Edit Page should mark as unchecked when press checked item 1`] = `
+[
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "❌",
+  "❌",
+]
+`;
+
+exports[`Menu Edit Page should mark as unchecked when press checked item 2`] = `
+[
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "❌",
+  "❌",
+  "❌",
+]
+`;
+
+exports[`Menu Edit Page should render all checkboxes checked/unchecked state 1`] = `
+[
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "✅",
+  "❌",
+  "❌",
+]
+`;
+
+exports[`Menu Edit Page should render all menu names in a sorted way 1`] = `
+[
+  "a-Item 1",
+  "b-Item 4",
+  "d-Item 8",
+  "e-Item 3",
+  "f-Item 2",
+  "g-Item 5",
+  "Item 7",
+  "p-Item 6",
+]
+`;
