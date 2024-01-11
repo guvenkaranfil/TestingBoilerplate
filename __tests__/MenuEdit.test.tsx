@@ -66,19 +66,32 @@ describe('Menu Edit Page', () => {
 
   test('should not list render item re-render unncessarily', async () => {
     const spyOnRenderItemCallback = jest.fn();
+    const uncheckedItem1 = MOCK_MENU_ITEMS.filter(
+      listItem => !listItem.isActive,
+    )[0];
+    const uncheckedItem2 = MOCK_MENU_ITEMS.filter(
+      listItem => !listItem.isActive,
+    )[1];
+
     const totalListItem = MOCK_MENU_ITEMS.length;
+
     render(
       <MenuEdit
         menus={MOCK_MENU_ITEMS}
         onRenderItemCallback={spyOnRenderItemCallback}
       />,
     );
-
-    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem);
-
-    await MenuEditTestHelpers.uncheckItem();
-
     expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem + 1);
+
+    const unCheckedItems = screen.queryAllByText(unCheckItemLabel);
+    await MenuEditTestHelpers.checkItem(uncheckedItem1);
+    await MenuEditTestHelpers.checkItem(uncheckedItem2);
+
+    expect(screen.queryAllByText(unCheckItemLabel).length).toEqual(
+      unCheckedItems.length - 2,
+    );
+
+    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem + 3);
   });
 });
 
@@ -124,5 +137,20 @@ class MenuEditTestHelpers {
     expect(checkedItemElement).toBeOnTheScreen();
 
     await userEvent.press(checkedItemElement);
+  };
+
+  static checkItem = async (item?: IMenuItem) => {
+    const uncheckedItem =
+      item ?? MOCK_MENU_ITEMS.filter(listItem => !listItem.isActive)[0];
+
+    const unCheckedItemElement = screen.getByTestId(uncheckedItem.id);
+    expect(unCheckedItemElement).toBeOnTheScreen();
+
+    await userEvent.press(unCheckedItemElement);
+
+    const uncheckedItemChecbox = screen.getByTestId(
+      `checked-${uncheckedItem.id}`,
+    );
+    expect(uncheckedItemChecbox).toBeOnTheScreen();
   };
 }

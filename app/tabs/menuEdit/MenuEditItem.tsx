@@ -1,11 +1,10 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {useAppDispatch, useAppSelector} from '../../store';
+import {checkMenuItem} from '../../store/userSlice';
 
 interface IMenuEditItemProps {
   id: string;
-  name: string;
-  isActive: boolean;
-  onPress: (item: string, status: boolean) => void;
   onRenderItemCallback?: () => void;
 }
 
@@ -19,22 +18,29 @@ const CheckBox = ({isActive, id}: {isActive: boolean; id: string}) => {
   );
 };
 
-function MenuEditItem({
-  id,
-  isActive,
-  name,
-  onPress,
-  onRenderItemCallback,
-}: IMenuEditItemProps) {
+function MenuEditItem({id, onRenderItemCallback}: IMenuEditItemProps) {
   if (process.env.NODE_ENV === 'test') {
     onRenderItemCallback?.();
   }
 
+  const dispatch = useAppDispatch();
+  const item = useAppSelector(state =>
+    state.user.menus?.find(menuItem => menuItem.id === id),
+  );
+
+  const onPressItem = () => {
+    dispatch(checkMenuItem({id: id, status: !item!.isActive}));
+  };
+
+  if (!item) {
+    return null;
+  }
+
   return (
-    <Pressable testID={id} onPress={() => onPress(id, !isActive)}>
+    <Pressable testID={id} onPress={onPressItem}>
       <View style={styles.container}>
-        <CheckBox id={id} isActive={isActive} />
-        <Text style={styles.label}>{name}</Text>
+        <CheckBox id={id} isActive={item.isActive} />
+        <Text style={styles.label}>{item.name}</Text>
       </View>
     </Pressable>
   );

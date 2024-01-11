@@ -1,7 +1,9 @@
-import React, {useCallback, useState} from 'react';
+import React, {useEffect} from 'react';
 import {FlatList} from 'react-native';
 import MenuEditItem from './MenuEditItem';
 import {MOCK_MENU_ITEMS} from '../../../__mocks__';
+import {useAppDispatch} from '../../store';
+import {setMenus} from '../../store/userSlice';
 
 export interface IMenuItem {
   id: string;
@@ -18,23 +20,12 @@ export default function MenuEdit({
   menus = MOCK_MENU_ITEMS,
   onRenderItemCallback,
 }: IMenuEditProps) {
-  const _sortedMenus = menus?.sort((a, b) => a.name.localeCompare(b.name));
-  const [sortedMenus, setsortedMenus] = useState(_sortedMenus);
+  const dispatch = useAppDispatch();
+  const sortedMenus = [...menus]?.sort((a, b) => a.name.localeCompare(b.name));
 
-  const checkItem = useCallback((id: string, status: boolean) => {
-    const updatedMenus = sortedMenus?.map(menu => {
-      if (menu.id === id) {
-        return {
-          ...menu,
-          isActive: status,
-        };
-      }
-      return menu;
-    });
-    setsortedMenus(updatedMenus);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    dispatch(setMenus(sortedMenus));
+  }, [dispatch, sortedMenus]);
 
   if (sortedMenus && sortedMenus.length > 0) {
     return (
@@ -42,8 +33,7 @@ export default function MenuEdit({
         data={sortedMenus}
         renderItem={({item}) => (
           <MenuEditItem
-            {...item}
-            onPress={checkItem}
+            id={item.id}
             onRenderItemCallback={onRenderItemCallback}
           />
         )}
