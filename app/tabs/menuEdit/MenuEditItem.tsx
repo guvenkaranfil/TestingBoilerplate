@@ -1,10 +1,12 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {IMenuItem} from '.';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 
 interface IMenuEditItemProps {
-  item: IMenuItem;
-  onPress: (item: IMenuItem, status: boolean) => void;
+  id: string;
+  name: string;
+  isActive: boolean;
+  onPress: (item: string, status: boolean) => void;
+  onRenderItemCallback?: () => void;
 }
 
 const CheckBox = ({isActive, id}: {isActive: boolean; id: string}) => {
@@ -17,12 +19,22 @@ const CheckBox = ({isActive, id}: {isActive: boolean; id: string}) => {
   );
 };
 
-export default function MenuEditItem({item, onPress}: IMenuEditItemProps) {
+function MenuEditItem({
+  id,
+  isActive,
+  name,
+  onPress,
+  onRenderItemCallback,
+}: IMenuEditItemProps) {
+  if (process.env.NODE_ENV === 'test') {
+    onRenderItemCallback?.();
+  }
+
   return (
-    <Pressable testID={item.id} onPress={() => onPress(item, !item.isActive)}>
+    <Pressable testID={id} onPress={() => onPress(id, !isActive)}>
       <View style={styles.container}>
-        <CheckBox id={item.id} isActive={item.isActive} />
-        <Text style={styles.label}>{item.name}</Text>
+        <CheckBox id={id} isActive={isActive} />
+        <Text style={styles.label}>{name}</Text>
       </View>
     </Pressable>
   );
@@ -50,3 +62,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
 });
+
+export default React.memo(MenuEditItem);

@@ -2,6 +2,7 @@ import React from 'react';
 import {render, screen, userEvent} from '../.jest/helper/testUtils';
 
 import MenuEdit, {IMenuItem} from '../app/tabs/menuEdit';
+import {MOCK_MENU_ITEMS} from '../__mocks__';
 
 describe('Menu Edit Page', () => {
   beforeEach(() => jest.useFakeTimers());
@@ -62,6 +63,23 @@ describe('Menu Edit Page', () => {
     );
     expect(uncheckedItemChecbox).toBeOnTheScreen();
   });
+
+  test('should not list render item re-render unncessarily', async () => {
+    const spyOnRenderItemCallback = jest.fn();
+    const totalListItem = MOCK_MENU_ITEMS.length;
+    render(
+      <MenuEdit
+        menus={MOCK_MENU_ITEMS}
+        onRenderItemCallback={spyOnRenderItemCallback}
+      />,
+    );
+
+    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem);
+
+    await MenuEditTestHelpers.uncheckItem();
+
+    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem + 1);
+  });
 });
 
 const checkItemLabel = /✅/i;
@@ -97,47 +115,14 @@ class MenuEditTestHelpers {
     const unCheckedBoxes = screen.queryAllByText(/❌/i);
     expect(unCheckedBoxes).toHaveLength(expectedCount ?? uncheckedItems.length);
   };
-}
 
-export const MOCK_MENU_ITEMS: IMenuItem[] = [
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe119999',
-    name: 'a-Item 1',
-    isActive: true,
-  },
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe120121',
-    name: 'f-Item 2',
-    isActive: false,
-  },
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe132131',
-    name: 'e-Item 3',
-    isActive: true,
-  },
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe1191231',
-    name: 'b-Item 4',
-    isActive: true,
-  },
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe141901',
-    name: 'g-Item 5',
-    isActive: true,
-  },
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe119912',
-    name: 'p-Item 6',
-    isActive: true,
-  },
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe14324',
-    name: 'Item 7',
-    isActive: true,
-  },
-  {
-    id: '7a379770-0524-4ab2-91a9-fcd9fe11943',
-    name: 'd-Item 8',
-    isActive: false,
-  },
-];
+  static uncheckItem = async (item?: IMenuItem) => {
+    const checkedItem =
+      item ?? MOCK_MENU_ITEMS.filter(menuItem => menuItem.isActive)[0];
+
+    const checkedItemElement = screen.getByTestId(checkedItem.id);
+    expect(checkedItemElement).toBeOnTheScreen();
+
+    await userEvent.press(checkedItemElement);
+  };
+}
