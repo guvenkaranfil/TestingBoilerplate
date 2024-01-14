@@ -6,6 +6,7 @@ import {useAppSelector} from '../store';
 import Login from '../auth/Login';
 import Home from '../tabs/Home';
 import PhoneBook from '../tabs/phoneBook';
+import MenuEdit from '../tabs/menuEdit';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -18,6 +19,7 @@ const Navigation = () => {
           <>
             <Stack.Screen name={'home'} component={Home} />
             <Stack.Screen name={'phonebook'} component={PhoneBook} />
+            <Stack.Screen name={'quickMenus'} component={MenuEdit} />
           </>
         ) : (
           <Stack.Screen name={'login'} component={Login} />

@@ -15,6 +15,10 @@ const Home = () => {
         title={'Phone Book'}
         onPress={() => navigation.navigate('phonebook')}
       />
+      <Button
+        title={'Quick Menus'}
+        onPress={() => navigation.navigate('quickMenus')}
+      />
 
       <Button
         title={'Logout'}
