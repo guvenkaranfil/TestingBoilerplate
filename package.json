@@ -10,6 +10,8 @@
     "test": "jest",
     "test:e2e:ios": "detox test --configuration ios.sim.debug",
     "test:e2e:ios:reuse": "detox test --configuration ios.sim.debug --reuse",
+    "test:performance":"yarn run reassure",
+    "test:performance:record":"yarn run reassure --baseline",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install"
   },
