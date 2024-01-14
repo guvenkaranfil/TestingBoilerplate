@@ -1,9 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {FlatList} from 'react-native';
 import MenuEditItem from './MenuEditItem';
 import {MOCK_MENU_ITEMS} from '../../../__mocks__';
-import {useAppDispatch} from '../../store';
-import {setMenus} from '../../store/userSlice';
 
 export interface IMenuItem {
   id: string;
@@ -20,17 +18,10 @@ export default function MenuEdit({
   menus = MOCK_MENU_ITEMS,
   onRenderItemCallback,
 }: IMenuEditProps) {
-  const dispatch = useAppDispatch();
-  const sortedMenus = [...menus]?.sort((a, b) => a.name.localeCompare(b.name));
-
-  useEffect(() => {
-    dispatch(setMenus(sortedMenus));
-  }, [dispatch, sortedMenus]);
-
-  if (sortedMenus && sortedMenus.length > 0) {
+  if (menus && menus.length > 0) {
     return (
       <FlatList
-        data={sortedMenus}
+        data={menus}
         renderItem={({item}) => (
           <MenuEditItem
             id={item.id}

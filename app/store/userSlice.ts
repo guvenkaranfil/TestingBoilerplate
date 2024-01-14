@@ -1,26 +1,22 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IMenuItem} from '../tabs/menuEdit';
+import {MOCK_MENU_ITEMS} from '../../__mocks__';
 
 export interface IUser {
-  token?: string;
-  refreshToken?: string;
-  userName?: string;
   menus?: IMenuItem[];
 }
 
+const sortedMenus = [...MOCK_MENU_ITEMS]?.sort((a, b) =>
+  a.name.localeCompare(b.name),
+);
 export const initialState: IUser = {
-  token: undefined,
-  refreshToken: undefined,
-  userName: undefined,
+  menus: sortedMenus,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<IUser>) => {
-      return {...state, ...action.payload};
-    },
     setMenus: (state, action: PayloadAction<IMenuItem[]>) => {
       return {...state, menus: action.payload};
     },
@@ -44,6 +40,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const {setUser, setMenus, checkMenuItem} = userSlice.actions;
+export const {setMenus, checkMenuItem} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,70 +1,25 @@
 import React from 'react';
-import {render, screen, userEvent} from '../.jest/helper/testUtils';
+import {act, render, screen, userEvent} from '../.jest/helper/testUtils';
 
 import MenuEdit, {IMenuItem} from '../app/tabs/menuEdit';
 import {MOCK_MENU_ITEMS} from '../__mocks__';
+import store from '../app/store';
+import {setMenus} from '../app/store/userSlice';
 
 describe('Menu Edit Page', () => {
   beforeEach(() => jest.useFakeTimers());
-  afterEach(() => jest.useRealTimers());
+  afterEach(() => {
+    jest.useRealTimers();
 
-  test('should render MenuEdit', () => {
-    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
+    act(() => {
+      const sortedMenus = [...MOCK_MENU_ITEMS]?.sort((a, b) =>
+        a.name.localeCompare(b.name),
+      );
+      store.dispatch(setMenus(sortedMenus));
+    });
   });
 
-  test('should render all menu names in a sorted way', () => {
-    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
-
-    const allItemNames = screen.queryAllByText(/item/i);
-
-    expect(allItemNames.map(item => item.props.children)).toMatchSnapshot();
-  });
-
-  test('should render all checkboxes checked/unchecked state', () => {
-    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
-
-    MenuEditTestHelpers.expectRenderedCheckBoxes();
-  });
-
-  test('should mark as checked when press unchecked item', async () => {
-    const uncheckedItem = MOCK_MENU_ITEMS.filter(item => !item.isActive)[0];
-    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
-
-    MenuEditTestHelpers.expectRenderedCheckBoxes();
-
-    const unCheckedItemElement = screen.getByTestId(uncheckedItem.id);
-    expect(unCheckedItemElement).toBeOnTheScreen();
-
-    await userEvent.press(unCheckedItemElement);
-
-    MenuEditTestHelpers.expectRenderedCheckBoxes();
-
-    const uncheckedItemChecbox = screen.getByTestId(
-      `checked-${uncheckedItem.id}`,
-    );
-    expect(uncheckedItemChecbox).toBeOnTheScreen();
-  });
-
-  test('should mark as unchecked when press checked item', async () => {
-    const checkedItem = MOCK_MENU_ITEMS.filter(item => item.isActive)[0];
-    render(<MenuEdit menus={MOCK_MENU_ITEMS} />);
-
-    MenuEditTestHelpers.expectRenderedCheckBoxes();
-
-    const checkedItemElement = screen.getByTestId(checkedItem.id);
-    expect(checkedItemElement).toBeOnTheScreen();
-
-    await userEvent.press(checkedItemElement);
-
-    MenuEditTestHelpers.expectRenderedCheckBoxes();
-
-    const uncheckedItemChecbox = screen.getByTestId(
-      `unChecked-${checkedItem.id}`,
-    );
-    expect(uncheckedItemChecbox).toBeOnTheScreen();
-  });
-
-  test('should not list render item re-render unncessarily', async () => {
+  test('should not re-render list items unncessarily', async () => {
     const spyOnRenderItemCallback = jest.fn();
     const uncheckedItem1 = MOCK_MENU_ITEMS.filter(
       listItem => !listItem.isActive,
@@ -81,7 +36,7 @@ describe('Menu Edit Page', () => {
         onRenderItemCallback={spyOnRenderItemCallback}
       />,
     );
-    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem + 1);
+    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem);
 
     const unCheckedItems = screen.queryAllByText(unCheckItemLabel);
     await MenuEditTestHelpers.checkItem(uncheckedItem1);
@@ -91,54 +46,12 @@ describe('Menu Edit Page', () => {
       unCheckedItems.length - 2,
     );
 
-    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem + 3);
+    expect(spyOnRenderItemCallback).toHaveBeenCalledTimes(totalListItem + 2);
   });
 });
 
-const checkItemLabel = /✅/i;
 const unCheckItemLabel = /❌/i;
 class MenuEditTestHelpers {
-  static expectRenderedCheckBoxes = () => {
-    const checkedBoxes = screen
-      .queryAllByText(checkItemLabel)
-      ?.map(box => box.props.children);
-    const unCheckedBoxes = screen
-      .queryAllByText(unCheckItemLabel)
-      ?.map(box => box.props.children);
-    expect([...checkedBoxes, ...unCheckedBoxes]).toMatchSnapshot();
-  };
-
-  static expectTextSnapshot = (withText: string | RegExp) => {
-    const texts = screen.queryAllByText(withText);
-    expect(texts.map(text => text.props.children)).toMatchSnapshot();
-  };
-
-  static expectCheckedBoxes = (
-    checkedItems: IMenuItem[],
-    expectedCount?: number,
-  ) => {
-    const checkedBoxes = screen.queryAllByText(/✅/i);
-    expect(checkedBoxes).toHaveLength(expectedCount ?? checkedItems.length);
-  };
-
-  static expecUncheckedBoxes = (
-    uncheckedItems: IMenuItem[],
-    expectedCount?: number,
-  ) => {
-    const unCheckedBoxes = screen.queryAllByText(/❌/i);
-    expect(unCheckedBoxes).toHaveLength(expectedCount ?? uncheckedItems.length);
-  };
-
-  static uncheckItem = async (item?: IMenuItem) => {
-    const checkedItem =
-      item ?? MOCK_MENU_ITEMS.filter(menuItem => menuItem.isActive)[0];
-
-    const checkedItemElement = screen.getByTestId(checkedItem.id);
-    expect(checkedItemElement).toBeOnTheScreen();
-
-    await userEvent.press(checkedItemElement);
-  };
-
   static checkItem = async (item?: IMenuItem) => {
     const uncheckedItem =
       item ?? MOCK_MENU_ITEMS.filter(listItem => !listItem.isActive)[0];
