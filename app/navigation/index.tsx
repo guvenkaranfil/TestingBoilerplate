@@ -1,29 +1,22 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useAppSelector} from '../store';
 
-import Login from '../auth/Login';
-import Home from '../tabs/Home';
-import PhoneBook from '../tabs/phoneBook';
-import MenuEdit from '../tabs/menuEdit';
+import HabitCreate from '../habitMe/habitCreate';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
-  const isLoggedIn = useAppSelector(state => state.user.token);
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isLoggedIn ? (
-          <>
-            <Stack.Screen name={'home'} component={Home} />
-            <Stack.Screen name={'phonebook'} component={PhoneBook} />
-            <Stack.Screen name={'quickMenus'} component={MenuEdit} />
-          </>
-        ) : (
-          <Stack.Screen name={'login'} component={Login} />
-        )}
+        <Stack.Screen
+          name={'habitCreate'}
+          options={{
+            title: 'Create Habit',
+            presentation: 'modal',
+          }}
+          component={HabitCreate}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
