@@ -3,51 +3,42 @@ import React, {useEffect} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {createHabit} from './helpers';
 import Input from '../../components/input';
+import HabitText, {TextTypes} from '../../components/habitText';
+import colors from '../../utils/colors';
 
 export default function HabitCreate() {
   const navigation = useNavigation();
 
-  console.log('HabitCreate:');
-
-  const submitButton = () => (
-    <Pressable onPress={() => createHabit()}>
-      <Text>Save</Text>
-    </Pressable>
-  );
-
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={navigation.goBack}>
           <Text>Vazgeç</Text>
         </Pressable>
       ),
-      headerRight: () => submitButton(),
       title: 'Create Habit',
       presentation: 'modal',
     });
   }, [navigation]);
 
-  const renderSubmitButtonForTesting = () => submitButton();
-
   return (
     <View style={styles.container}>
-      <View style={{}}>
-        <Input
-          mt={16}
-          label="Name"
-          placeholder={'Enter Name'}
-          inputName="name"
-        />
-        <Input
-          mt={16}
-          label="Description"
-          placeholder={'Enter Description'}
-          inputName="description"
-        />
-      </View>
+      <Input mt={16} label="Name" placeholder={'Enter Name'} inputName="name" />
+      <Input
+        mt={16}
+        label="Description"
+        placeholder={'Enter Description'}
+        inputName="description"
+      />
 
-      {process.env.NODE_ENV === 'test' && renderSubmitButtonForTesting()}
+      <Pressable style={styles.submitButton} onPress={createHabit}>
+        <HabitText
+          text="HabitME"
+          fontWeight="500"
+          color="white"
+          type={TextTypes.h3}
+        />
+      </Pressable>
     </View>
   );
 }
@@ -58,41 +49,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
   },
+  submitButton: {
+    marginTop: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 40,
+    backgroundColor: colors.greenSecondary,
+    opacity: 0.9,
+    borderRadius: 32,
+  },
 });
-
-/*
-
-  UI
-    - Show name, description inputs and submit button
-
-  UI  Logic
-    - Input validation
-    - Error validation messages
-
-  Business Logic
-    - Create Habit Object
-    - Save Habit to Storage
-      - If successfull;
-        - Update Habit List
-      - IF error happens
-        - Show error Message
-
-*/
-
-/*
-  Spacing
-  xLarge: 32,
-  large: 16
-  medium: 8
-  small: 4
-
-*/
-
-/*
-  h1:
-  h2:
-  h3:
-  h4:
-  caption:
-
-*/

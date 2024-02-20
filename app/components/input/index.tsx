@@ -1,7 +1,9 @@
-import {StyleSheet, Text, TextInput, TextInputProps, View} from 'react-native';
+import {StyleSheet, TextInput, TextInputProps, View} from 'react-native';
 import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../store';
 import {IInputState, updateInput} from '../../store/inputsSlice';
+import HabitText, {TextTypes} from '../habitText';
+import colors from '../../utils/colors';
 
 interface IOptionalInput {
   mt?: number;
@@ -26,7 +28,7 @@ export default function Input({
 
   return (
     <View style={{marginTop: mt}}>
-      <Text>{label}</Text>
+      <HabitText text={label} type={TextTypes.caption} color="blueTertiary" />
       <TextInput
         style={styles.input}
         onChangeText={(text: string) =>
@@ -47,6 +49,8 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 8,
     backgroundColor: '#fff',
+    color: colors.bluePrimary,
+    fontFamily: 'Roboto-Regular',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

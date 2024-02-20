@@ -13,7 +13,8 @@
     "test:performance":"yarn run reassure",
     "test:performance:record":"yarn run reassure --baseline",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "set:asset": "npx react-native-asset"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.9",

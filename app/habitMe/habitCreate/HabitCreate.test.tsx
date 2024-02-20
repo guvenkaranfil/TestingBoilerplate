@@ -25,7 +25,7 @@ describe('Habit Create Page', () => {
 
     const nameInput = screen.getByPlaceholderText(/enter name/i);
     const descriptionInput = screen.getByPlaceholderText(/enter description/i);
-    const saveButton = await screen.findByText(/save/i);
+    const saveButton = await screen.findByText(/habitme/i);
     expect(saveButton).toBeOnTheScreen();
 
     fireEvent.changeText(nameInput, 'Test Habit Name');
