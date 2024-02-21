@@ -20,5 +20,8 @@ describe('Input', () => {
     fireEvent.changeText(nameInput, 'Test Habit Name');
     expect(nameInput.props.value).toBe('Test Habit Name');
     expect(store.getState().inputs.name).toEqual('Test Habit Name');
+
+    screen.unmount();
+    expect(store.getState().inputs.name).toEqual('');
   });
 });

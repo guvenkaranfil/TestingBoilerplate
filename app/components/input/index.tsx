@@ -1,5 +1,5 @@
 import {StyleSheet, TextInput, TextInputProps, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../store';
 import {IInputState, updateInput} from '../../store/inputsSlice';
 import HabitText, {TextTypes} from '../habitText';
@@ -25,6 +25,12 @@ export default function Input({
 }: InputProps & IOptionalInput) {
   const inputs = useAppSelector(store => store.inputs);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(updateInput({name: inputName, value: ''}));
+    };
+  }, [inputName, dispatch]);
 
   return (
     <View style={{marginTop: mt}}>
