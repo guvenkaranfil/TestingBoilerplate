@@ -12,3 +12,7 @@ export const set = (
 export const get = (key: string) => {
   return storage.getString(key);
 };
+
+export const clearAllStorage = () => {
+  storage.clearAll();
+};

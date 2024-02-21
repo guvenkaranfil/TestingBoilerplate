@@ -1,9 +1,8 @@
 import React from 'react';
-
 import HabitCreate from '.';
 import {render, screen, fireEvent} from '../../../.jest/helper/testUtils';
-import * as helpers from './helpers'; // Assuming createHabit is imported from a file named helpers.js
-import {get, storage} from '../../storage/localStorage';
+import * as helpers from './helpers';
+import {clearAllStorage, get} from '../../storage/localStorage';
 import {IHabit} from './habit';
 
 const nameInputText = 'Test Habit Name';
@@ -12,7 +11,7 @@ describe('Habit Create Page', () => {
   let habitsKey = 'testHabits';
 
   beforeAll(() => {
-    storage.clearAll();
+    clearAllStorage();
   });
 
   test('should be able to type name and description inputs', () => {

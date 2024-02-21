@@ -17,10 +17,19 @@ export const createHabit = (): Promise<boolean> => {
   return saveHabitToStorage(habit);
 };
 
+interface LocalHabit extends Omit<IHabit, 'createdDate'> {
+  createdDate: string;
+}
+
 const saveHabitToStorage = (habit: IHabit): Promise<boolean> => {
   return new Promise(resolve => {
+    const localHabit: LocalHabit = {
+      ...habit,
+      createdDate: habit.createdDate.toISOString(),
+    };
     let habits = JSON.parse(get(habitsKey) ?? '[]');
-    habits.push(habit);
+    habits.push(localHabit);
+    store.dispatch({type: 'habits/setHabits', payload: {habits: habits}});
     set(habitsKey, JSON.stringify(habits));
     return resolve(true);
   });

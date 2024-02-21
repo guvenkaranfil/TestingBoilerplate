@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {createHabit} from './helpers';
 import Input from '../../components/input';
 import HabitText, {TextTypes} from '../../components/habitText';
@@ -10,16 +10,15 @@ export default function HabitCreate() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <Pressable onPress={navigation.goBack}>
-          <Text>Vazgeç</Text>
-        </Pressable>
-      ),
-      title: 'Create Habit',
-      presentation: 'modal',
-    });
+    navigation.setOptions({title: 'Create Habit', presentation: 'modal'});
   }, [navigation]);
+
+  const submit = async () => {
+    const status = await createHabit();
+    if (status) {
+      navigation.goBack();
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -31,7 +30,7 @@ export default function HabitCreate() {
         inputName="description"
       />
 
-      <Pressable style={styles.submitButton} onPress={createHabit}>
+      <Pressable style={styles.submitButton} onPress={submit}>
         <HabitText
           text="HabitME"
           fontWeight="500"

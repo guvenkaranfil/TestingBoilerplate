@@ -2,9 +2,11 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
 import {configureStore} from '@reduxjs/toolkit';
 import inputsSlice from './inputsSlice';
+import habitsSlice from './habitsSlice';
 
 const store = configureStore({
   reducer: {
+    habitsSlice: habitsSlice,
     inputs: inputsSlice,
   },
 });

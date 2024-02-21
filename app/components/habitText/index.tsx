@@ -12,10 +12,10 @@ export enum TextTypes {
   small,
 }
 
-interface IText {
-  type: TextTypes;
+export interface IText {
+  type?: TextTypes;
   text: string;
-  color: keyof IColors;
+  color?: keyof IColors;
   fontWeight?:
     | 'normal'
     | 'bold'
@@ -35,10 +35,10 @@ export default function HabitText(props: TextProps & IText) {
   return (
     <Text
       style={[
-        styles[props.type],
+        styles[props.type ?? TextTypes.caption],
         styles.family,
         {
-          color: colors[props.color],
+          color: colors[props.color ?? 'bluePrimary'],
           fontWeight: props.fontWeight,
         },
         props.style,

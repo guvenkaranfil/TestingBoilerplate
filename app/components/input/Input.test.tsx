@@ -2,7 +2,7 @@ import React from 'react';
 
 import Input from '.';
 import {fireEvent, render, screen} from '../../../.jest/helper/testUtils';
-import store from '../../store';
+import {getGlobalState} from '../../storage/globalStorage';
 
 describe('Input', () => {
   test('should be able set and get texts', () => {
@@ -19,9 +19,9 @@ describe('Input', () => {
 
     fireEvent.changeText(nameInput, 'Test Habit Name');
     expect(nameInput.props.value).toBe('Test Habit Name');
-    expect(store.getState().inputs.name).toEqual('Test Habit Name');
+    expect(getGlobalState().inputs.name).toEqual('Test Habit Name');
 
     screen.unmount();
-    expect(store.getState().inputs.name).toEqual('');
+    expect(getGlobalState().inputs.name).toEqual('');
   });
 });
