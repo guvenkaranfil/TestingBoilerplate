@@ -1,8 +1,9 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {IHabit} from '../habitMe/habitCreate/habit';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {ILocalHabit} from '../habitMe/habitCreate/habit';
+import dayjs from 'dayjs';
 
 export interface IHabitsState {
-  habits: IHabit[];
+  habits: ILocalHabit[];
 }
 
 const initialState: IHabitsState = {
@@ -13,15 +14,27 @@ const habitsSlice = createSlice({
   name: 'habits',
   initialState,
   reducers: {
-    setHabits: (state, action: {payload: {habits: IHabit[]}}) => {
-      return {
-        ...state,
-        habits: action.payload.habits,
-      };
+    setHabits: (state, action: {payload: {habits: ILocalHabit[]}}) => {
+      state.habits = action.payload.habits;
+    },
+
+    completeDay: (
+      state,
+      action: PayloadAction<{habitIndex: number; date: string}>,
+    ) => {
+      const {habitIndex, date} = action.payload;
+      const habit = state.habits[habitIndex];
+      if (habit && !habit.completedDates.includes(date)) {
+        const newCompletedDates = [...habit.completedDates, date];
+        state.habits[habitIndex] = {
+          ...habit,
+          completedDates: newCompletedDates,
+        };
+      }
     },
   },
 });
 
-export const {setHabits} = habitsSlice.actions;
+export const {setHabits, completeDay} = habitsSlice.actions;
 
 export default habitsSlice.reducer;

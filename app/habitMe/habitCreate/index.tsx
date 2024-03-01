@@ -5,6 +5,7 @@ import {createHabit} from './helpers';
 import Input from '../../components/input';
 import HabitText, {TextTypes} from '../../components/habitText';
 import colors from '../../utils/colors';
+import Toast from 'react-native-toast-message';
 
 export default function HabitCreate() {
   const navigation = useNavigation();
@@ -38,6 +39,7 @@ export default function HabitCreate() {
           type={TextTypes.h3}
         />
       </Pressable>
+      <Toast />
     </View>
   );
 }

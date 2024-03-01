@@ -10,8 +10,8 @@
     "test": "jest",
     "test:e2e:ios": "detox test --configuration ios.sim.debug",
     "test:e2e:ios:reuse": "detox test --configuration ios.sim.debug --reuse",
-    "test:performance":"yarn run reassure",
-    "test:performance:record":"yarn run reassure --baseline",
+    "test:performance": "yarn run reassure",
+    "test:performance:record": "yarn run reassure --baseline",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install",
     "set:asset": "npx react-native-asset"
@@ -21,11 +21,13 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@reduxjs/toolkit": "^2.0.1",
     "add": "^2.0.6",
+    "dayjs": "^1.11.10",
     "react": "18.1.0",
     "react-native": "0.70.10",
     "react-native-mmkv": " 2.8.0",
     "react-native-safe-area-context": "^4.7.4",
     "react-native-screens": "^3.27.0",
+    "react-native-toast-message": "^2.2.0",
     "react-redux": "8.1.2"
   },
   "devDependencies": {

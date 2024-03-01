@@ -9,3 +9,9 @@ export interface IHabit {
   streakGoal: StreakGoal;
   completedDates: Date[];
 }
+
+export interface ILocalHabit
+  extends Omit<IHabit, 'createdDate' | 'completedDates'> {
+  createdDate: string;
+  completedDates: string[];
+}
