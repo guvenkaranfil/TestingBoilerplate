@@ -1,6 +1,5 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {ILocalHabit} from '../habitMe/habitCreate/habit';
-import dayjs from 'dayjs';
 
 export interface IHabitsState {
   habits: ILocalHabit[];
