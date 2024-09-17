@@ -10,4 +10,14 @@ module.exports = {
     // For pnpm you need to use inlcude `(?!(?:.pnpm/)?` part like this:
     // 'node_modules/(?!(?:.pnpm/)?((jest-)?@?react-native|@react-native-community|@react-navigation))',
   ],
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: './test-reports',
+        outputName: 'junit-report.xml',
+      },
+    ],
+  ],
 };

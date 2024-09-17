@@ -10,8 +10,8 @@
     "test": "jest",
     "test:e2e:ios": "detox test --configuration ios.sim.debug",
     "test:e2e:ios:reuse": "detox test --configuration ios.sim.debug --reuse",
-    "test:performance":"yarn run reassure",
-    "test:performance:record":"yarn run reassure --baseline",
+    "test:performance": "yarn run reassure",
+    "test:performance:record": "yarn run reassure --baseline",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prepare": "husky install"
   },
@@ -48,6 +48,7 @@
     "eslint-plugin-testing-library": "^6.2.0",
     "husky": "^8.0.0",
     "jest": "^29.2.1",
+    "jest-junit": "^16.0.0",
     "metro-react-native-babel-preset": "0.72.3",
     "msw": "^2.0.11",
     "pod-install": "^0.1.39",
