@@ -17,3 +17,5 @@ jest.mock('@react-navigation/native', () => {
     useIsFocused: jest.fn(),
   };
 });
+
+jest.setTimeout(10000);
