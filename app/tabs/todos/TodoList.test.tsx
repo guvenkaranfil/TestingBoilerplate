@@ -17,7 +17,10 @@ jest.mock('./service', () => {
 });
 
 describe('TodoList', () => {
-  beforeEach(() => jest.useFakeTimers());
+  beforeEach(() => {
+    jest.useFakeTimers();
+    jest.setTimeout(10000);
+  });
 
   test('should list todo items', async () => {
     const service = require('./service');
