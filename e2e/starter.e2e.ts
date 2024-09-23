@@ -18,4 +18,13 @@ describe('Login Flow and Phone Book List', () => {
     await element(by.label('Phone Book')).tap();
     await expect(element(by.label(/No data/i))).toBeVisible();
   });
+
+  it('should login successfully and see the menu list', async () => {
+    await expect(element(by.label(/go to home/i))).toBeVisible();
+
+    await element(by.label(/Go To Home/i)).tap();
+    await element(by.label(/quick menus/i)).tap();
+
+    await expect(element(by.label(/a-item 1/i))).toBeVisible();
+  });
 });
