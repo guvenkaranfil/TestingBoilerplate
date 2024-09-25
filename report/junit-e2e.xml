@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="2" failures="0" errors="0" time="6.739">
+  <testsuite name="Login Flow and Phone Book List" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:08:31" time="6.656" tests="2">
+    <testcase classname="Login Flow and Phone Book List should login successfully and see the phone book list" name="Login Flow and Phone Book List should login successfully and see the phone book list" time="1.633">
+    </testcase>
+    <testcase classname="Login Flow and Phone Book List should login successfully and see the menu list" name="Login Flow and Phone Book List should login successfully and see the menu list" time="1.496">
+    </testcase>
+  </testsuite>
+</testsuites>
