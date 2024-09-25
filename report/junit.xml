@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="33" failures="0" errors="0" time="6.769">
+  <testsuite name="undefined" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:44:02" time="1.36" tests="1">
+    <testcase classname=" should return current day" name=" should return current day" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="NavigationFlow" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:44:02" time="6.387" tests="1">
+    <testcase classname="NavigationFlow renders app.tsx correctly" name="NavigationFlow renders app.tsx correctly" time="0.279">
+    </testcase>
+  </testsuite>
+  <testsuite name="TodoList" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:44:02" time="6.413" tests="1">
+    <testcase classname="TodoList should list todo items" name="TodoList should list todo items" time="2.582">
+    </testcase>
+  </testsuite>
+  <testsuite name="NavigationFlow" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:44:02" time="6.474" tests="4">
+    <testcase classname="NavigationFlow renders login screen if user is not signed in" name="NavigationFlow renders login screen if user is not signed in" time="0.327">
+    </testcase>
+    <testcase classname="NavigationFlow renders home screen if user is signed in" name="NavigationFlow renders home screen if user is signed in" time="0.026">
+    </testcase>
+    <testcase classname="NavigationFlow should render home page after successfull login" name="NavigationFlow should render home page after successfull login" time="0.042">
+    </testcase>
+    <testcase classname="NavigationFlow should render login page after successfull login and can log out" name="NavigationFlow should render login page after successfull login and can log out" time="0.024">
+    </testcase>
+  </testsuite>
+  <testsuite name="Menu Edit Page" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:44:02" time="6.524" tests="6">
+    <testcase classname="Menu Edit Page should render MenuEdit" name="Menu Edit Page should render MenuEdit" time="2.233">
+    </testcase>
+    <testcase classname="Menu Edit Page should render all menu names in a sorted way" name="Menu Edit Page should render all menu names in a sorted way" time="0.013">
+    </testcase>
+    <testcase classname="Menu Edit Page should render all checkboxes checked/unchecked state" name="Menu Edit Page should render all checkboxes checked/unchecked state" time="0.009">
+    </testcase>
+    <testcase classname="Menu Edit Page should mark as checked when press unchecked item" name="Menu Edit Page should mark as checked when press unchecked item" time="0.02">
+    </testcase>
+    <testcase classname="Menu Edit Page should mark as unchecked when press checked item" name="Menu Edit Page should mark as unchecked when press checked item" time="0.01">
+    </testcase>
+    <testcase classname="Menu Edit Page should not list render item re-render unncessarily" name="Menu Edit Page should not list render item re-render unncessarily" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="PhoneBook List with Search functionality" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:44:02" time="6.586" tests="9">
+    <testcase classname="PhoneBook List with Search functionality should component render correctly" name="PhoneBook List with Search functionality should component render correctly" time="2.583">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should be able to type to input" name="PhoneBook List with Search functionality should be able to type to input" time="0.063">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show a message on empty list" name="PhoneBook List with Search functionality should show a message on empty list" time="0.003">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show loader while data is loading and hide when is finished" name="PhoneBook List with Search functionality should show loader while data is loading and hide when is finished" time="0.02">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show users on non-empty data list with handling loading" name="PhoneBook List with Search functionality should show users on non-empty data list with handling loading" time="0.005">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should user be able to refresh data with pull-to-refresh action" name="PhoneBook List with Search functionality should user be able to refresh data with pull-to-refresh action" time="0.007">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show loader on load more and hide it with rendering with more items if data has been updated successfully" name="PhoneBook List with Search functionality should show loader on load more and hide it with rendering with more items if data has been updated successfully" time="0.022">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should filter list based on user search" name="PhoneBook List with Search functionality should filter list based on user search" time="0.02">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should component update the list after setting data" name="PhoneBook List with Search functionality should component update the list after setting data" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="PhoneBook List with Search functionality" errors="0" failures="0" skipped="0" timestamp="2024-09-25T09:44:02" time="6.605" tests="11">
+    <testcase classname="PhoneBook List with Search functionality should component render correctly" name="PhoneBook List with Search functionality should component render correctly" time="2.585">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should be able to type to input" name="PhoneBook List with Search functionality should be able to type to input" time="0.059">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show a message on empty list" name="PhoneBook List with Search functionality should show a message on empty list" time="0.004">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show loader while data is loading and hide when is finished" name="PhoneBook List with Search functionality should show loader while data is loading and hide when is finished" time="0.004">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show users on non-empty data list with handling loading" name="PhoneBook List with Search functionality should show users on non-empty data list with handling loading" time="0.005">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should user be able to refresh data with pull-to-refresh action" name="PhoneBook List with Search functionality should user be able to refresh data with pull-to-refresh action" time="0.007">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should show loader on load more and hide it with rendering with more items if data has been updated successfully" name="PhoneBook List with Search functionality should show loader on load more and hide it with rendering with more items if data has been updated successfully" time="0.023">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should filter list based on user search" name="PhoneBook List with Search functionality should filter list based on user search" time="0.019">
+    </testcase>
+    <testcase classname="PhoneBook List with Search functionality should component update the list after setting data" name="PhoneBook List with Search functionality should component update the list after setting data" time="0.004">
+    </testcase>
+    <testcase classname="PhoneBook page should fetch phone book data with showing loading" name="PhoneBook page should fetch phone book data with showing loading" time="0.004">
+    </testcase>
+    <testcase classname="PhoneBook page should show `No Data` message on unsuccessfull data fetch" name="PhoneBook page should show `No Data` message on unsuccessfull data fetch" time="0.002">
+    </testcase>
+  </testsuite>
+</testsuites>
