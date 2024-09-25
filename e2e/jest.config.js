@@ -12,7 +12,7 @@ module.exports = {
     [
       'jest-junit',
       {
-        outputDirectory: './reports',
+        outputDirectory: './test-reports',
         outputName: 'e2e-report.xml',
       },
     ],
